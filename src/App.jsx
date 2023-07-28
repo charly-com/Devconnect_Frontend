@@ -1,29 +1,39 @@
-import { useMemo } from "react";
-import { BrowserRouter, Navigate, Routes, Route } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { CssBaseline, ThemeProvider } from "@mui/material";
-import { createTheme } from "@mui/material/styles";
-import { themeSettings } from "./theme";
-import Navbar from "./component/navBar"
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import io from 'socket.io-client'
+// import SocketClient from "./SocketClient";
+import { GLOBALTYPES } from "./redux/actions/globalTypes";
+import Register from "./pages/register";
+import { useDispatch } from "react-redux";
+import { refreshToken } from "./redux/actions/authAction";
+import { useEffect } from "react";
 
 
 function App() {
-  const mode = useSelector((state) => state.mode);
-  const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
-  const isAuth = Boolean(useSelector((state) => state.token));
+  // const { auth, status, modal, userType } = useSelector((state) => state);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(refreshToken());
+
+    const socket = io();
+    dispatch({type: GLOBALTYPES.SOCKET, payload: socket })
+    return () => socket.close()
+  }, [dispatch]);
 
   return (
     <div className="app">
-    <BrowserRouter>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-      <Navbar />
-      </ThemeProvider>
+      <BrowserRouter>
+       
+          
+          <Routes>
+          <Route path="/" element={ <Register />} />
+         
+        
+          </Routes>
+       
       </BrowserRouter>
     </div>
-      
- 
-  )
+  );
 }
 
-export default App
+export default App;
