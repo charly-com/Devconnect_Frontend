@@ -16,9 +16,9 @@ const Register = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const initialState = { firstName: "", lastName: "", email: "", password: "",  gender: "" };
+    const initialState = { firstName: "", lastName: "", email: "", password: "",  gender: "male" };
      const [userData, setUserData] = useState(initialState);
-     const { firstName, lastName, email, password, gender } = userData;
+     const { firstName, lastName, email, password } = userData;
 
      const [typePass, setTypePass] = useState(false);
      
@@ -54,11 +54,11 @@ const Register = () => {
               <input
                 type="text"
                 className="form-control"
-                id="fullname"
+                id="firstName"
                 onChange={handleChangeInput}
                 value={firstName}
                 name="firstName"
-                style={{ background: `${alert.fullname ? "#fd2d6a14" : ""} ` }}
+                style={{ background: `${alert.firstName ? "#fd2d6a14" : ""} ` }}
               />
             </div>
             <small className="form-text text-danger">
@@ -67,22 +67,22 @@ const Register = () => {
           </div>
 
           <div className="mb-3">
-            <label htmlFor="username" className="form-label">
-              User name
+            <label htmlFor="lastName" className="form-label">
+              Last Name
             </label>
             <div className="outer-shadow hover-in-shadow form-input-wrap">
               <input
                 type="text"
                 className="form-control"
-                id="username"
+                id="lastName"
                 onChange={handleChangeInput}
                 value={lastName}
-                name="username"
-                style={{ background: `${alert.username ? "#fd2d6a14" : ""} ` }}
+                name="lastName"
+                style={{ background: `${alert.lastName ? "#fd2d6a14" : ""} ` }}
               />
             </div>
             <small className="form-text text-danger">
-              {alert.username ? alert.username : ""}
+              {alert.lastName ? alert.lastName : ""}
             </small>
           </div>
 
@@ -142,7 +142,7 @@ const Register = () => {
                 type="radio"
                 id="male"
                 name="gender"
-                value={gender}
+                value="male"
                 defaultChecked
                 onChange={handleChangeInput}
               />
@@ -151,10 +151,10 @@ const Register = () => {
             <label htmlFor="female">
               Female:
               <input
-                type="radio"
-                id="female"
-                name="gender"
-                value={gender}
+               type="radio"
+               id="female"
+               name="gender"
+               value="female"
                 onChange={handleChangeInput}
               />
             </label>
